@@ -1,9 +1,8 @@
 using ReflectionProofsOfConcepts.Models;
-using System.Dynamic;
 
 namespace ReflectionProofsOfConcepts
 {
-    public class UnitTest1
+    public class ReflectionTests
     {
         [Fact]
         public void Reflection_Should_GetNamedProps()
@@ -65,26 +64,6 @@ namespace ReflectionProofsOfConcepts
             var type = consumingObj.innerObj.GetType();
 
             Assert.Equal("Knie", (props[0].GetValue(consumingObj.innerObj) as List<string>)![0]);
-        }
-
-        [Fact]
-        public void Reflection_Expando()
-        {
-            var objWithNamedProps = new ObjWithNamedProps
-            {
-                Name = "Knie",
-                Description = "Knie is a name"
-            };
-            var expandoConsumer = new ExpandoObject() as IDictionary<string, object>;
-            expandoConsumer["TestObject"] = objWithNamedProps;
-
-            var fields = expandoConsumer["TestObject"].GetType().GetFields();
-            var props = expandoConsumer["TestObject"].GetType().GetProperties();
-
-            var fields1 = expandoConsumer.GetType().GetFields();
-            var props1 = expandoConsumer.GetType().GetProperties();
-
-            Assert.Equal("ObjWithNamedProps", expandoConsumer["TestObject"].GetType().Name);
         }
     }
 }
